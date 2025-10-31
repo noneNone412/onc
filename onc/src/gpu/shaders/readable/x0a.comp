@@ -1,0 +1,32 @@
+#version 450
+#extension GL_ARB_gpu_shader_fp64 : enable
+
+layout(constant_id = 0) const uint WORKGROUP_SIZE_X = 1;
+
+layout(
+	local_size_x_id = 0
+) in;
+
+layout(set = 0, binding = 0) readonly buffer input_a {
+	double a[];
+};
+
+layout(set = 0, binding = 1) readonly buffer input_b {
+	double b[];
+};
+
+layout(set = 0, binding = 2) readonly buffer input_c {
+	double c[];
+};
+
+layout(set = 1, binding = 0) writeonly buffer OutputData { double outData[]; };
+layout(push_constant) uniform PushConstants {
+	 int xCount; 
+} params;
+void main() {
+	 uint reservedX = gl_GlobalInvocationID.x; 
+	 if (reservedX >= uint(params.xCount)) {
+	 return;
+	 }
+	 outData[reservedX] = (a[reservedX]+b[reservedX]+c[reservedX]);
+}
