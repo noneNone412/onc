@@ -19,6 +19,7 @@ The system is designed to maximize GPU and CPU parallelism through a multithread
 ## Test Case
 - __Input equation is given in string given by the user__
   - write_shaders::write(String::from("x0a"), String::from("(a+b+c)"))
+  - The equation also supports the **abs()** function therefore as long as the mathematical way to place the simple braces is followed equation can also be complicated like => ___((a * 3.14) / abs(b) * 100___, **constants** are  supported as well,
   - **x0a** is the shader file name where the string **(a+b+c)** is written to a shader using ___std::regex___ and the **.comp (compute)**  shader file is written further converting the compiled file to the compiled file that the GPU can read, including the ***meta-data*** for the shader using the ___std::serde_json___ 
 - __Computed Equation__
 ![p2](readme_files/eqn.png)
